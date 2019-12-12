@@ -8,8 +8,13 @@ NAME	= fire
 WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
 	  -Wold-style-definition -Werror
 
+SRCDIR	= src
+SUBDIR	= sub
+
+INC	= -I$(SUBDIR)/termbox_next/
+
 CC	= clang
-CFLAGS	= -g -std=c99 $(WARNING)
+CFLAGS	= -g -std=c99 $(WARNING) $(INC)
 LDFLAGS	= -fuse-ld=lld
 
 SRC	= main.c
@@ -18,14 +23,14 @@ OBJ	= $(SRC:.c=.o)
 all: $(NAME)
 
 clean:
-	rm -f $(NAME) $(OBJ)
+	rm -f $(SRCDIR)/$(NAME) $(SRCDIR)/$(OBJ)
 
 .c.o:
 	@echo "\tCC\t\t$@"
-	@$(CC) $(CFLAGS) -c $<
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ)
+$(NAME): $(SRCDIR)/$(OBJ)
 	@echo "\tLD\t\t$(NAME)"
-	@$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+	@$(CC) -o $(SRCDIR)/$@ $^ $(CFLAGS) $(LDFLAGS)
 
 .PHONY: all clean

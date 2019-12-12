@@ -3,56 +3,58 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <sys/ioctl.h>
 
-#include "termbox.h"
-#include "bool.h"
-#include "outp.h"
-#include "type.h"
+#define BOOL	unsigned char
+#define TRUE	1
+#define FALSE	0
+#define PRINT(...)	fprintf(stderr, __VA_ARGS__);
 
-#define STEPS	13
+// I miss the Rust type system :(
+typedef uint8_t		 u8;
+typedef uint16_t	u16;
+typedef uint32_t	u32;
 
-void init ( struct term_buf buf );
+#if UINTPTR_MAX == 0xffff
+typedef uint16_t	usize;
+#elif UINTPTR_MAX == 0xffffffff
+typedef uint32_t	usize;
+#elif UINTPTR_MAX == 0xffffffffffffffff
+typedef uint64_t	usize;
+#endif
+
+
+char esc = (char) 27;
+usize width;
+usize height;
+usize palette[] = { 0x00, 0xff0000, 0xff6611, 0xffff66, 0xffffff };
+usize *pixels;
+
 void dofire ( void );
 void draw ( void );
 
 int
 main ( void )
 {
-	// initialize termbox
-	tb_init();
-	tb_select_output_mode(TB_OUTPUT_NORMAL);
-	tb_clear();
+	// populate width and height
+	struct winsize w;
+	ioctl(0, TIOCGWINSZ, &w);
 
-	struct term_buf buf;
-	draw_init(&buf);
+	width = w.ws_col;
+	height = w.ws_row;
 
-	// initialize drawing
-	
+	pixels = (usize*) calloc((width * height), sizeof(usize));
+
+	// init pixels
+	for (usize c = 0; c < (width * height); c++) pixels[c] = (usize) NULL;
+	for (usize i = 0; i < width; i++)
+	{
+		pixels[((width * (height - 1)) - width) + i] = palette[4];
+	}
 
 	draw();
 	dofire();
-
-	// cleanup termbox
-	tb_shutdown();
-
 	return 0;
-}
-
-void
-init ( struct term_buf buf )
-{
-	buf->init_width = buf->width;
-	buf->init_height = buf->height;
-
-	usize len = buf->width * buf->height;
-	buf->tmp_buf = malloc(len);
-	len -= buf->width;
-
-	if (buf->tmp_buf == NULL)
-		PRINT("fire: error: unable to malloc() memory for buffer\n");
-
-	memset(buf->tmp_buf, 0, len);
-	memset(buf->tmp_buf + len, STEPS - 1, buf->width);
 }
 
 void
