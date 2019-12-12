@@ -9,7 +9,7 @@ WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
 	  -Wold-style-definition -Werror
 
 CC	= clang
-CFLAGS	= -g -O3 -std=c99 $(WARNING)
+CFLAGS	= -g -std=c99 $(WARNING)
 LDFLAGS	= -fuse-ld=lld
 
 SRC	= main.c
