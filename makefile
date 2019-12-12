@@ -8,7 +8,6 @@ NAME	= fire
 WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
 	  -Wold-style-definition -Werror
 
-SRCDIR	= src
 SUBDIR	= sub
 
 INC	= -I$(SUBDIR)/termbox_next/
@@ -23,14 +22,14 @@ OBJ	= $(SRC:.c=.o)
 all: $(NAME)
 
 clean:
-	rm -f $(SRCDIR)/$(NAME) $(SRCDIR)/$(OBJ)
+	rm -f $(NAME) $(OBJ)
 
 .c.o:
 	@echo "\tCC\t\t$@"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $<
 
-$(NAME): $(SRCDIR)/$(OBJ)
+$(NAME): $(OBJ)
 	@echo "\tLD\t\t$(NAME)"
-	@$(CC) -o $(SRCDIR)/$@ $^ $(CFLAGS) $(LDFLAGS)
+	@$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 .PHONY: all clean
