@@ -58,7 +58,7 @@ main ( int argc, char *argv[] )
 		// event handling
 		usize err = (usize) tb_peek_event(&e, 5);
 
-		if (err != 0)
+		if (err < 0)
 			continue;
 
 		if (e.type == TB_EVENT_KEY)
@@ -66,7 +66,6 @@ main ( int argc, char *argv[] )
 			switch (e.key)
 			{
 				case 0x03:
-					fprintf(stdout, "exiting\n");
 					cleanup(&buf);
 					exit(0);
 				default:
