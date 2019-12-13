@@ -11,7 +11,7 @@ WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
 INC	= -Isub/termbox_next/src -Isub/ccommon/
 
 CC	= clang
-CFLAGS	= -g -std=c99 $(WARNING) $(INC)
+CFLAGS	= -std=c99 -O3 $(WARNING) $(INC)
 LDFLAGS	= -fuse-ld=lld
 
 TRMBOX	= sub/termbox_next/bin/termbox.a
