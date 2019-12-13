@@ -19,10 +19,7 @@
 extern char *argv0;
 
 typedef struct Options {
-	bool perf_opt1;
-	bool perf_opt2;
-	bool perf_opt3;
-	bool verbose;
+	bool stub;	// no real options... yet
 } Options;
 
 /* use main(int argc, char *argv[]) */
