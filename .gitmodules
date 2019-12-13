@@ -1,3 +1,6 @@
 [submodule "sub/termbox_next"]
 	path = sub/termbox_next
 	url = https://github.com/cylgom/termbox_next
+[submodule "sub/ccommon"]
+	path = sub/ccommon
+	url = https://github.com/lptstr/ccommon
