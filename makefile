@@ -35,4 +35,7 @@ $(NAME): $(OBJ) $(TRMBOX)
 	@echo "\tLD\t\t$(NAME)"
 	@$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
-.PHONY: all clean
+install: $(NAME)
+	install -m755 ./$(NAME) /usr/bin/$(NAME)
+
+.PHONY: all clean install
