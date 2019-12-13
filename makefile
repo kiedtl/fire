@@ -36,6 +36,7 @@ $(NAME): $(OBJ) $(TRMBOX)
 	@$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 install: $(NAME)
-	install -m755 ./$(NAME) /usr/bin/$(NAME)
+	@echo "\tINSTALL\t$(NAME)\t/usr/bin/$(NAME)"
+	@install -m755 ./$(NAME) /usr/bin/$(NAME)
 
 .PHONY: all clean install
