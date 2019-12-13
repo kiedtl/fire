@@ -25,13 +25,14 @@ main ( int argc, char *argv[] )
 	// default args
 	opts->refresh_rate = 5;
 	opts->truecolor    = FALSE;
+	usize output_mode  = TB_OUTPUT_NORMAL;
 
 	// argument parsing
 	argv0 = argv[0];
 
 	ARGBEGIN {
 		case 't':
-			tb_select_output_mode(TB_OUTPUT_TRUECOLOR);
+			output_mode = TB_OUTPUT_TRUECOLOR;
 			opts->truecolor = TRUE;
 			break;
 		case 'r':
@@ -53,7 +54,7 @@ main ( int argc, char *argv[] )
 
 	// initialize termbox
 	tb_init();
-	tb_select_output_mode(TB_OUTPUT_NORMAL);
+	tb_select_output_mode(output_mode);
 	tb_clear();
 	struct buffer buf;
 	struct tb_event e;

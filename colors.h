@@ -7,7 +7,7 @@
 
 #define RED	0xdd1111
 #define BLACK	0x000000
-#define YELLOW	0xffdd00
+#define YELLOW	0xff7700
 #define WHITE	0xffffff
 
 struct tb_cell normcolors[CLRS_LEN] =
@@ -37,7 +37,7 @@ struct tb_cell normcolors[CLRS_LEN] =
 struct tb_cell truecolors[CLRS_LEN] =
 {
 	// default
-	{ ' ',    9, 0 },
+	{ ' ',          9, 0 },
 
 	// red/black
 	{ 0x2591, RED,  BLACK },

@@ -66,15 +66,13 @@ dofire ( struct buffer *buf )
 			if (buf->buf[dest] > 12)
 				buf->buf[dest] = 0;
 
-			if (opts->truecolor) {
-				realbuf[dest] = truecolors[buf->buf[dest]];
-				realbuf[src]  = truecolors[buf->buf[src]];
-			}
-			else
-			{
-				realbuf[dest] = normcolors[buf->buf[dest]];
-				realbuf[src]  = normcolors[buf->buf[src]];
-			}
+			struct tb_cell *colors;
+			if (opts->truecolor == TRUE)
+				colors = (struct tb_cell*) &truecolors;
+			else colors = (struct tb_cell*) &normcolors;
+
+			realbuf[dest] = colors[buf->buf[dest]];
+			realbuf[src]  = colors[buf->buf[src]];
 		}
 	}
 }
