@@ -38,6 +38,7 @@ main ( int argc, char *argv[] )
 	tb_select_output_mode(TB_OUTPUT_NORMAL);
 	tb_clear();
 	struct buffer buf;
+	struct tb_event e;
 	
 	// initialize drawing
 	init(&buf);
@@ -53,13 +54,29 @@ main ( int argc, char *argv[] )
 
 		// draw framebuffer to terminal
 		tb_present();
+
+		// event handling
+		usize err = (usize) tb_peek_event(&e, 5);
+
+		if (err != 0)
+			continue;
+
+		if (e.type == TB_EVENT_KEY)
+		{
+			switch (e.key)
+			{
+				case 0x03:
+					fprintf(stdout, "exiting\n");
+					cleanup(&buf);
+					exit(0);
+				default:
+					break;
+			}
+		}
 	}
 
-	// cleanup termbox
-	tb_shutdown();
-
-	// cleanup framebuffer
-	free(buf.buf);
+	// perform cleanup
+	cleanup(&buf);
 
 	return 0;
 }

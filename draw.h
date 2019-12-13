@@ -12,5 +12,6 @@ typedef struct buffer
 
 void init ( struct buffer *buf );
 void dofire ( struct buffer *buf );
+void cleanup ( struct buffer *buf );
 
 #endif

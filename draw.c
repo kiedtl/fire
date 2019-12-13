@@ -67,3 +67,12 @@ dofire ( struct buffer *buf )
 		}
 	}
 }
+
+
+// free framebuffer and shutdown termbox
+void
+cleanup ( struct buffer *buf )
+{
+	free(buf->buf);
+	tb_shutdown();
+}
