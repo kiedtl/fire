@@ -1,5 +1,6 @@
 #ifndef DRAW_INCLUDED
 #define DRAW_INCLUDED
+
 #include "types.h"
 
 typedef struct buffer

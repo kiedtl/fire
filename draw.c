@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "args.h"
 #include "termbox.h"
 #include "types.h"
 #include "draw.h"
-#include "output.h"
 #include "colors.h"
+#include "output.h"
+
+// arguments
+extern struct Options *opts;
 
 // initialize the framebuffer
 void
@@ -62,8 +66,15 @@ dofire ( struct buffer *buf )
 			if (buf->buf[dest] > 12)
 				buf->buf[dest] = 0;
 
-			realbuf[dest] = colors[buf->buf[dest]];
-			realbuf[src]  = colors[buf->buf[src]];
+			if (opts->truecolor) {
+				realbuf[dest] = truecolors[buf->buf[dest]];
+				realbuf[src]  = truecolors[buf->buf[src]];
+			}
+			else
+			{
+				realbuf[dest] = normcolors[buf->buf[dest]];
+				realbuf[src]  = normcolors[buf->buf[src]];
+			}
 		}
 	}
 }

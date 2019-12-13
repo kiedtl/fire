@@ -16,10 +16,27 @@ struct Options *opts;
 int
 main ( int argc, char *argv[] )
 {
+	opts = (struct Options*) calloc(1, sizeof(struct Options*));
+	if (opts == NULL) {
+		PRINT("fire: error: cannot ");
+		perror("calloc()");
+	}
+
+	// default args
+	opts->refresh_rate = 5;
+	opts->truecolor    = FALSE;
+
 	// argument parsing
 	argv0 = argv[0];
 
 	ARGBEGIN {
+		case 't':
+			tb_select_output_mode(TB_OUTPUT_TRUECOLOR);
+			opts->truecolor = TRUE;
+			break;
+		case 'r':
+			opts->refresh_rate = atoi(ARGF());
+			break;
 		case 'V':
 			PRINT("%s %s\n", argv0, VERSION);
 			exit(0);
@@ -28,7 +45,8 @@ main ( int argc, char *argv[] )
 			PRINT("fire %s\n(c) Kied Llaentenn and contributors\n", VERSION);
 			PRINT("https://github.com/lptstr/fire\n");
 			PRINT("\nUSAGE:\n\t$ fire\n\n");
-			PRINT("OPTIONS:\n\t-V\tshow version and exit.\n");
+			PRINT("OPTIONS:\n\t-t\tenable true colors.\n");
+			PRINT("\t-V\tshow version and exit.\n");
 			PRINT("\t-h\tshow this help message and exit.\n\n");
 			exit(1);
 	} ARGEND
@@ -56,7 +74,7 @@ main ( int argc, char *argv[] )
 		tb_present();
 
 		// event handling
-		int err = (usize) tb_peek_event(&e, 5);
+		int err = (usize) tb_peek_event(&e, opts->refresh_rate);
 
 		if (err < 0)
 			continue;

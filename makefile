@@ -12,7 +12,7 @@ INC	= -Isub/termbox_next/src -Isub/ccommon/
 
 CC	= gcc
 CFLAGS	= -std=c99 -O3 $(WARNING) $(INC)
-LDFLAGS	= -fuse-ld=lld
+LDFLAGS	=
 
 TRMBOX	= sub/termbox_next/bin/termbox.a
 SRC	= main.c draw.c

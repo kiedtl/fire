@@ -15,11 +15,14 @@
 #ifndef ARGS_INCLUDED
 #define ARGS_INCLUDED
 #include "bool.h"
+#include "args.h"
+#include "types.h"
 
 extern char *argv0;
 
 typedef struct Options {
-	bool stub;	// no real options... yet
+	usize refresh_rate;
+	bool truecolor;
 } Options;
 
 /* use main(int argc, char *argv[]) */
