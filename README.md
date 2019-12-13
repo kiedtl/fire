@@ -50,8 +50,8 @@ $ fire
 I'm bored
 
 ## credits
-Thanks to @cylgom, for inspiring me to make this project.
-More thanks to @cylgom, from whose repositories I sto^Hborrowed a lot
+- Thanks to @cylgom, for inspiring me to make this project.
+- More thanks to @cylgom, from whose repositories I sto^Hborrowed a lot
 of stuff :)
 
 ## license
