@@ -8,9 +8,7 @@ NAME	= fire
 WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
 	  -Wold-style-definition -Werror
 
-SUBDIR	= sub
-
-INC	= -I$(SUBDIR)/termbox_next/
+INC	= -Isub/termbox_next/src
 
 CC	= clang
 CFLAGS	= -g -std=c99 $(WARNING) $(INC)
@@ -18,6 +16,7 @@ LDFLAGS	= -fuse-ld=lld
 
 SRC	= main.c
 OBJ	= $(SRC:.c=.o)
+TRMBOX	= sub/termbox_next/bin/termbox.a
 
 all: $(NAME)
 
@@ -28,7 +27,11 @@ clean:
 	@echo "\tCC\t\t$@"
 	@$(CC) $(CFLAGS) -c $<
 
-$(NAME): $(OBJ)
+$(TRMBOX):
+	@echo "\tCC\t\ttermbox.c"
+	@cd sub/termbox_next/ && make
+
+$(NAME): $(OBJ) $(TRMBOX)
 	@echo "\tLD\t\t$(NAME)"
 	@$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
