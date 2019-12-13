@@ -56,7 +56,7 @@ main ( int argc, char *argv[] )
 		tb_present();
 
 		// event handling
-		usize err = (usize) tb_peek_event(&e, 5);
+		int err = (usize) tb_peek_event(&e, 5);
 
 		if (err < 0)
 			continue;
