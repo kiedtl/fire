@@ -1,3 +1,5 @@
+![](https://github.com/lptstr/lptstr-images/blob/master/proj/fire/scrot.jpg?raw=true)
+
 # fire
 
 > The ancient DOOM fire animation in the terminal!
