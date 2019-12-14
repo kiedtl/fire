@@ -18,6 +18,9 @@ TRMBOX	= sub/termbox_next/bin/termbox.a
 SRC	= main.c draw.c
 OBJ	= $(SRC:.c=.o)
 
+DESTDIR = /
+PREFIX	= /usr/local/
+
 all: $(NAME)
 
 clean:
@@ -36,7 +39,10 @@ $(NAME): $(OBJ) $(TRMBOX)
 	@$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 install: $(NAME)
-	@echo "\tINSTALL\t$(NAME)\t/usr/bin/$(NAME)"
-	@install -m755 ./$(NAME) /usr/bin/$(NAME)
+	@echo "\tINSTALL\t\t$(NAME)\t$(DESTDIR)/$(PREFIX)/bin/$(NAME)"
+	@install -m755 ./$(NAME) $(DESTDIR)/$(PREFIX)/bin/$(NAME)
 
+uninstall:
+	@echo "\tRM\t\t$(DESTDIR)/$(PREFIX)/bin/$(NAME)"
+	@rm -f $(DESTDIR)/$(PREFIX)/bin/$(NAME)
 .PHONY: all clean install

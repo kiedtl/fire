@@ -16,13 +16,18 @@ It's described nicely by Fabien Sanglard on his
 
 ### building from source
 You will need:
-- `git`
+- `git` or `wget`
 - a c99 compiler (gcc or clang)
 - GNU Make (unknown if other `make`s will work)
 
-Clone the source via `git`:
+Retrieve the source:
 ```
+$ # via git:
 $ git --recurse clone https://github.com/lptstr/fire
+$
+$ # via wget:
+$ wget https://github.com/lptstr/fire/archive/master.tar.gz
+$ tar xvf master.tar.gz
 ```
 
 Build:
@@ -37,7 +42,7 @@ and install:
 
 Uninstall, if you wish:
 ```
-# rm -f /usr/bin/fire
+# make uninstall
 ```
 
 ## how?
