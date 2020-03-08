@@ -2,9 +2,6 @@
 // Copy me if you can.
 // by 20h
 //
-// Copied by kiedtl
-// on 2019-12-11 1516
-//
 
 // This file is was proudly stol^Hborrowed
 // from the st project and is copyright all
