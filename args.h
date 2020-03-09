@@ -13,12 +13,17 @@
 #define ARGS_INCLUDED
 #include "bool.h"
 #include "args.h"
+
+#ifdef __OpenBSD__
+#include "sys/types.h"
+#else
 #include "types.h"
+#endif
 
 extern char *argv0;
 
 typedef struct Options {
-	usize refresh_rate;
+	size_t refresh_rate;
 	bool truecolor;
 } Options;
 

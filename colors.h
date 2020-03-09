@@ -1,9 +1,14 @@
 #ifndef COLORS_INCLUDED
 #define COLORS_INCLUDED
 
-#include "types.h"
 #include "termbox.h"
 #define CLRS_LEN	13
+
+#ifdef __OpenBSD__
+#include "sys/types.h"
+#else
+#include "types.h"
+#endif
 
 #define RED	0xdd1111
 #define BLACK	0x000000

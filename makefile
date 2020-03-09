@@ -8,7 +8,7 @@ NAME	= fire
 WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
 	  -Wold-style-definition -Werror
 
-INC	= -Isub/termbox_next/src -Isub/ccommon/
+INC	= -Isub/termbox_next/src
 
 CC	= gcc
 CFLAGS	= -std=c99 -O3 $(WARNING) $(INC)
