@@ -4,10 +4,15 @@
 
 #include "args.h"
 #include "termbox.h"
-#include "types.h"
 #include "draw.h"
 #include "colors.h"
 #include "output.h"
+
+#ifdef __OpenBSD__
+#include "sys/types.h"
+#else
+#include "types.h"
+#endif
 
 // arguments
 extern struct Options *opts;
@@ -20,8 +25,8 @@ init ( struct buffer *buf )
 	buf->width = tb_width();
 	buf->height = tb_height();
 
-	usize len = buf->width * buf->height;
-	buf->buf = (u8*) malloc(len);
+	size_t len = buf->width * buf->height;
+	buf->buf = (uint8_t*) malloc(len);
 	len -= buf->width;
 
 	if (buf->buf == NULL) {
@@ -42,15 +47,15 @@ init ( struct buffer *buf )
 void
 dofire ( struct buffer *buf )
 {
-	usize src;
-	usize random;
-	usize dest;
+	size_t src;
+	size_t random;
+	size_t dest;
 
 	struct tb_cell *realbuf = tb_cell_buffer();
 
-	for (usize x = 0; x < buf->width; ++x)
+	for (size_t x = 0; x < buf->width; ++x)
 	{
-		for (usize y = 1; y < buf->height; ++y)
+		for (size_t y = 1; y < buf->height; ++y)
 		{
 			src = y * buf->width + x;
 			random = (rand() % 7) & 3;

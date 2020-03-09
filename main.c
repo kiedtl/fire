@@ -3,9 +3,14 @@
 #include "bool.h"
 #include "output.h"
 #include "draw.h"
-#include "types.h"
 #include "termbox.h"
 #include "args.h"
+
+#ifdef __OpenBSD__
+#include "sys/types.h"
+#else
+#include "types.h"
+#endif
 
 #define VERSION	"0.2.0"
 
@@ -25,7 +30,7 @@ main ( int argc, char *argv[] )
 	// default args
 	opts->refresh_rate = 5;
 	opts->truecolor    = FALSE;
-	usize output_mode  = TB_OUTPUT_NORMAL;
+	size_t output_mode  = TB_OUTPUT_NORMAL;
 
 	// argument parsing
 	argv0 = argv[0];
@@ -75,7 +80,7 @@ main ( int argc, char *argv[] )
 		tb_present();
 
 		// event handling
-		int err = (usize) tb_peek_event(&e, opts->refresh_rate);
+		int err = (size_t) tb_peek_event(&e, opts->refresh_rate);
 
 		if (err < 0)
 			continue;

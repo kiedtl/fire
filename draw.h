@@ -1,14 +1,18 @@
 #ifndef DRAW_INCLUDED
 #define DRAW_INCLUDED
 
+#ifdef __OpenBSD__
+#include "sys/types.h"
+#else
 #include "types.h"
+#endif
 
 typedef struct buffer
 {
-	usize width;
-	usize height;
+    size_t width;
+    size_t height;
 	
-	u8* buf;
+	uint8_t* buf;
 } buffer;
 
 void init ( struct buffer *buf );
