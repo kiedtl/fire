@@ -36,7 +36,7 @@ $(TRMBOX):
 
 $(NAME): $(OBJ) $(TRMBOX)
 	@echo "\tLD\t\t$(NAME)"
-	@$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+	@$(CC) -o $(NAME) $(OBJ) $(TRMBOX) $(CFLAGS) $(LDFLAGS)
 
 install: $(NAME)
 	@echo "\tINSTALL\t\t$(NAME)\t$(DESTDIR)/$(PREFIX)/bin/$(NAME)"
