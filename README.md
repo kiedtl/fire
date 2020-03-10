@@ -20,7 +20,7 @@ It's described nicely by Fabien Sanglard on his
 You will need:
 - `git` or `wget`
 - a c99 compiler (gcc or clang)
-- GNU Make (unknown if other `make`s will work)
+- `gmake` (`bmake` is untested, but should work.)
 
 Retrieve the source:
 ```
