@@ -88,9 +88,10 @@ main(int argc, char *argv[])
 			printf("    -V           Display version and exit.\n\n");
 			printf("EXAMPLES:\n");
 			printf("    %s                    'Normal' fire.\n", argv0);
-			printf("    %s -Rw0 -f100         Cmatrix-esque effect.\n", argv0);
+			printf("    %s -R -w0 -f100       Cmatrix-esque effect.\n", argv0);
 			printf("    %s -l2 -w2            Small fire with wind blowing east.\n", argv0);
-			printf("    %s -Rw0 -f10000000    Heatwaves!\n", argv0);
+			printf("    %s -R -w0 -f1000000   Heatwaves!\n", argv0);
+			printf("    %s -t -l2 -f3         Truecolor fire animation.\n", argv0);
 			printf("(c) Kiëd Llaentenn, nullgemm\n");
 			printf("https://github.com/lptstr/fire\n");
 
