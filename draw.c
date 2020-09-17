@@ -26,7 +26,7 @@ init(struct buffer *buf)
 	buf->height = tb_height();
 
 	size_t len = buf->width * buf->height;
-	buf->buf = (uint8_t*) malloc(len);
+	buf->buf = (uint8_t*) calloc(len, sizeof(uint8_t));
 	len -= buf->width;
 
 	if (buf->buf == NULL) {
