@@ -6,7 +6,7 @@
 
 NAME	= fire
 WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
-	  -Wold-style-definition -Werror
+	  -Wold-style-definition
 
 INC	= -Isub/termbox_next/src
 

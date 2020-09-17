@@ -17,7 +17,7 @@
 #ifdef __OpenBSD__
 #include "sys/types.h"
 #else
-#include "types.h"
+#include "stdint.h"
 #endif
 
 extern char *argv0;

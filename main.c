@@ -9,10 +9,10 @@
 #ifdef __OpenBSD__
 #include "sys/types.h"
 #else
-#include "types.h"
+#include "stdint.h"
 #endif
 
-#define VERSION	"0.2.0"
+#define VERSION "0.2.0"
 
 // argument parsing (args.h)
 char *argv0;

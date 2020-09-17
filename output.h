@@ -2,6 +2,6 @@
 #define OUTP_H
 #include <stdio.h>
 
-#define PRINT(...)	fprintf(stderr, __VA_ARGS__);
+#define EPRINT(...) fprintf(stderr, __VA_ARGS__);
 
 #endif
