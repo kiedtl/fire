@@ -11,7 +11,7 @@ WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
 INC	= -Isub/termbox_next/src
 
 CC	= gcc
-CFLAGS	= -std=c99 -O3 $(WARNING) $(INC)
+CFLAGS	= -std=c99 $(WARNING) $(INC) -fsanitize=address -Og -ggdb
 LDFLAGS	=
 
 TRMBOX	= sub/termbox_next/bin/termbox.a

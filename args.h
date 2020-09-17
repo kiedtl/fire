@@ -3,9 +3,10 @@
 // by 20h
 //
 
-// This file is was proudly stol^Hborrowed
-// from the st project and is copyright all
-// st contributors. View the LICENSE at:
+// This file was proudly stol^Hborrowed
+// from the st project.
+//
+// (c) all st contributors. View the LICENSE at:
 // https://git.suckless.org/st/file/LICENSE.html
 
 
@@ -24,6 +25,10 @@ extern char *argv0;
 
 typedef struct Options {
 	size_t refresh_rate;
+	size_t max_heat_loss;
+	size_t wind;
+	size_t random_factor;
+	bool random_wind;
 	bool truecolor;
 } Options;
 

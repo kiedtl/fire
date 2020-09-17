@@ -14,6 +14,9 @@
 #include "stdint.h"
 #endif
 
+#define MAX(VAL1, VAL2)    ((VAL1) > (VAL2) ? (VAL1) : (VAL2))
+#define MIN(VAL1, VAL2)    ((VAL1) < (VAL2) ? (VAL1) : (VAL2))
+
 // arguments
 extern struct Options *opts;
 
@@ -46,16 +49,34 @@ void
 dofire(struct buffer *buf)
 {
 	size_t src;
-	size_t random;
+	size_t random = (rand() % 7) & 3;
 	size_t dest;
 
 	struct tb_cell *realbuf = tb_cell_buffer();
 
 	for (size_t x = 0; x < buf->width; ++x) {
 		for (size_t y = 1; y < buf->height; ++y) {
+			if ((rand() % opts->random_factor) == 0) {
+				random = (rand() % 7) & 3;
+			}
+
 			src = y * buf->width + x;
-			random = (rand() % 7) & 3;
-			dest = src - random + 1;
+
+			if (opts->random_wind) {
+				dest = src - random + opts->wind;
+			} else {
+				dest = src + opts->wind;
+			}
+
+			size_t max_value;
+			struct tb_cell *colors;
+			if (opts->truecolor == TRUE) {
+				colors = (struct tb_cell*) &truecolors;
+				max_value = 35;
+			} else {
+				colors = (struct tb_cell*) &normcolors;
+				max_value = 12;
+			}
 
 			if (buf->width > dest) {
 				dest = 0;
@@ -63,17 +84,11 @@ dofire(struct buffer *buf)
 				dest -= buf->width;
 			}
 
-			buf->buf[dest] = buf->buf[src] - (random & 1);
+			size_t loss = MIN(opts->max_heat_loss, 3);
+			buf->buf[dest] = MAX(buf->buf[src] - (random & loss), 0);
 
-			if (buf->buf[dest] > 12) {
+			if (buf->buf[dest] > max_value) {
 				buf->buf[dest] = 0;
-			}
-
-			struct tb_cell *colors;
-			if (opts->truecolor == TRUE) {
-				colors = (struct tb_cell*) &truecolors;
-			} else {
-				colors = (struct tb_cell*) &normcolors;
 			}
 
 			realbuf[dest] = colors[buf->buf[dest]];

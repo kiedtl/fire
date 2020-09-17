@@ -19,9 +19,9 @@ char *argv0;
 struct Options *opts;
 
 int
-main ( int argc, char *argv[] )
+main(int argc, char *argv[])
 {
-	opts = (struct Options*) calloc(1, sizeof(struct Options*));
+	opts = (struct Options*) calloc(1, sizeof(struct Options));
 	if (opts == NULL) {
 		perror("fire: error: calloc()");
 	}
@@ -30,6 +30,10 @@ main ( int argc, char *argv[] )
 	opts->refresh_rate  = 5;
 	size_t output_mode  = TB_OUTPUT_NORMAL;
 	opts->truecolor     = FALSE;
+	opts->max_heat_loss = 1;
+	opts->wind          = 1;
+	opts->random_wind   = TRUE;
+	opts->random_factor = 4;
 
 	// argument parsing
 	argv0 = argv[0];
@@ -42,18 +46,44 @@ main ( int argc, char *argv[] )
 		case 'r':
 			opts->refresh_rate = atoi(ARGF());
 			break;
+		case 'l':
+			opts->max_heat_loss = atoi(ARGF());
+			break;
+		case 'w':
+			opts->wind = atoi(ARGF());
+			break;
+		case 'R':
+			opts->random_wind = FALSE;
+			break;
+		case 'f':
+			opts->random_factor = atoi(ARGF());
+			break;
 		case 'V':
 			printf("%s %s\n", argv0, VERSION);
 			return 0;
 		case 'h':
 		default:
-			printf("Usage: %s [-tVh] [-r rate]\n", argv0);
+			printf("Usage: %s [-RtVh] [-r speed] [-l loss] [-w wind] [-f fact]\n", argv0);
 			printf("Display a nice fiery animation.\n\n");
 			printf("ARGUMENTS:\n");
-			printf("    -r [rate]   Change refresh rate. (default: 5)\n");
-			printf("    -t          Enable truecolor. (Will not work on *rxvt)\n");
-			printf("    -h          Display this help message and exit.\n");
-			printf("    -V          Display version and exit.\n\n");
+			printf("    -r [speed]   Change refresh rate. (default: 5)\n");
+			printf("    -l [loss]    Maximum heat loss for each row upward. (default: 1)\n");
+			printf("                 Higher values will lead to a smaller fire.\n");
+			printf("    -w [wind]    Wind. Negative values, or values less than one will\n");
+			printf("                 cause the fire to be blown west. (default: 1)\n");
+			printf("                 To disable wind, set this value to 0 and use the -R flag.\n");
+			printf("    -f [fact]    Set the chance of the random value being refreshed\n");
+			printf("                 for each tile in the fire animation. (default: 4)\n");
+			printf("                 High values will cause a matrix-like effect.\n");
+			printf("    -R           Disable random wind factor.\n");
+			printf("    -t           Enable truecolor. (Will not work on *rxvt)\n");
+			printf("    -h           Display this help message and exit.\n");
+			printf("    -V           Display version and exit.\n\n");
+			printf("EXAMPLES:\n");
+			printf("    %s                    'Normal' fire.\n");
+			printf("    %s -Rw0 -f100         Cmatrix-esque effect.\n");
+			printf("    %s -l2 -w2            Small fire with wind blowing east.\n");
+			printf("    %s -Rw0 -f10000000    Heatwaves!\n");
 			printf("(c) Kiëd Llaentenn, nullgemm\n");
 			printf("https://github.com/lptstr/fire\n");
 
