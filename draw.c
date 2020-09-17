@@ -30,14 +30,12 @@ init(struct buffer *buf)
 	len -= buf->width;
 
 	if (buf->buf == NULL) {
-		PRINT("fire: cannot ");
+		EPRINT("fire: cannot ");
 		perror("calloc()");
 		exit(1);
 	}
 
-	// initialize the entire screen to black...
-	memset(buf->buf, 0, len);
-
+	// calloc sets the entire screen to black
 	// ...except for the last row, which is white.
 	// this is the 'base' of the fire.
 	memset(buf->buf + len, 12, buf->width);
