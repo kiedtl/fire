@@ -18,18 +18,14 @@ It's described nicely by Fabien Sanglard on his
 
 ### building from source
 You will need:
-- `git` or `wget`
+- `git`
 - a c99 compiler (gcc or clang)
-- `gmake` (`bmake` is untested, but should work.)
+- `gmake` (`bmake` is untested, but might work.)
 
 Retrieve the source:
 ```
 $ # via git:
-$ git --recurse clone https://github.com/lptstr/fire
-$
-$ # via wget:
-$ wget https://github.com/lptstr/fire/archive/master.tar.gz
-$ tar xvf master.tar.gz
+$ git clone https://github.com/lptstr/fire --recurse
 ```
 
 Build:
@@ -48,19 +44,22 @@ Uninstall, if you wish:
 ```
 
 ## how?
-simply run `fire`:
 ```
-$ ./fire
+$ fire                     # no args for default animation
+$ fire -h                  # help message
+$ fire -Rw0 -f100          # matrix effect
+$ fire -l2 -w2             # small fire with wind blowing east
+$ fire -Rw0 -f1000000      # california animation
+$ fire -t -l2 -f3          # truecolor!
 ```
 
 ### why?
 I'm bored
 
 ## credits
-- Thanks to @nullgemm, for inspiring me to make this project.
-- More thanks to @nullgemm, from whose repositories I sto^Hborrowed a lot
-of stuff :)
+This code was originally based on [`ly`](https://github.com/nullgemm/ly)'s
+animation code.
 
 ## license
-This project is licensed under the MIT license. View the LICENSE.md file
-for more information.
+This project is licensed under the MIT license. View the [COPYING](COPYING)
+file for more information.
