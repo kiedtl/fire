@@ -41,7 +41,7 @@ init(struct buffer *buf)
 	// calloc sets the entire screen to black
 	// ...except for the last row, which is white.
 	// this is the 'base' of the fire.
-	memset(buf->buf + len, 12, buf->width);
+	memset(buf->buf + len, opts->truecolor ? 35 : 12, buf->width);
 }
 
 // update the framebuffer

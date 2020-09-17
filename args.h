@@ -25,6 +25,7 @@ extern char *argv0;
 
 typedef struct Options {
 	size_t refresh_rate;
+	size_t animation_speed;
 	size_t max_heat_loss;
 	size_t wind;
 	size_t random_factor;
