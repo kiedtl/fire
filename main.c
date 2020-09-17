@@ -91,19 +91,25 @@ main ( int argc, char *argv[] )
 
 		if (e.type == TB_EVENT_KEY)
 		{
+			switch (e.ch) {
+			case 'q':
+				goto cleanup;
+			default:
+				break;
+			}
+
 			switch (e.key)
 			{
-				case 0x03:
-					cleanup(&buf);
-					exit(0);
+				case TB_KEY_CTRL_C:
+				case TB_KEY_CTRL_D:
+					goto cleanup;
 				default:
 					break;
 			}
 		}
 	}
 
-	// perform cleanup
+cleanup:
 	cleanup(&buf);
-
 	return 0;
 }
