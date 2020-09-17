@@ -51,28 +51,30 @@ dofire(struct buffer *buf)
 
 	struct tb_cell *realbuf = tb_cell_buffer();
 
-	for (size_t x = 0; x < buf->width; ++x)
-	{
-		for (size_t y = 1; y < buf->height; ++y)
-		{
+	for (size_t x = 0; x < buf->width; ++x) {
+		for (size_t y = 1; y < buf->height; ++y) {
 			src = y * buf->width + x;
 			random = (rand() % 7) & 3;
 			dest = src - random + 1;
 
-			if (buf->width > dest)
+			if (buf->width > dest) {
 				dest = 0;
-			else
+			} else {
 				dest -= buf->width;
+			}
 
 			buf->buf[dest] = buf->buf[src] - (random & 1);
 
-			if (buf->buf[dest] > 12)
+			if (buf->buf[dest] > 12) {
 				buf->buf[dest] = 0;
+			}
 
 			struct tb_cell *colors;
-			if (opts->truecolor == TRUE)
+			if (opts->truecolor == TRUE) {
 				colors = (struct tb_cell*) &truecolors;
-			else colors = (struct tb_cell*) &normcolors;
+			} else {
+				colors = (struct tb_cell*) &normcolors;
+			}
 
 			realbuf[dest] = colors[buf->buf[dest]];
 			realbuf[src]  = colors[buf->buf[src]];
