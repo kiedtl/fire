@@ -6,7 +6,7 @@
 
 ## what?
 `fire` is a remake of the PSX DOOM fire animation in the terminal,
-as seen in the [ly](https://github.com/cylgom/ly) display manager.
+as seen in the [ly](https://github.com/nullgemm/ly) display manager.
 It's described nicely by Fabien Sanglard on his
 [blog](https://fabiensanglard.net/doom_fire_psx/index.html).
 
@@ -48,17 +48,17 @@ Uninstall, if you wish:
 ```
 
 ## how?
-simply run `./fire` (or `fire`, if you installed) and enjoy.
+simply run `fire`:
 ```
-$ fire
+$ ./fire
 ```
 
 ### why?
 I'm bored
 
 ## credits
-- Thanks to @cylgom, for inspiring me to make this project.
-- More thanks to @cylgom, from whose repositories I sto^Hborrowed a lot
+- Thanks to @nullgemm, for inspiring me to make this project.
+- More thanks to @nullgemm, from whose repositories I sto^Hborrowed a lot
 of stuff :)
 
 ## license
