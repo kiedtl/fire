@@ -63,3 +63,6 @@ animation code.
 ## license
 This project is licensed under the MIT license. View the [COPYING](COPYING)
 file for more information.
+
+## contributing
+Prepare to see some of the worst C code in your life.
