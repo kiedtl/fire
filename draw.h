@@ -7,16 +7,15 @@
 #include "stdint.h"
 #endif
 
-typedef struct buffer
-{
-    size_t width;
-    size_t height;
+struct buffer {
+	size_t width;
+	size_t height;
 	
 	uint8_t* buf;
-} buffer;
+};
 
-void init ( struct buffer *buf );
-void dofire ( struct buffer *buf );
-void cleanup ( struct buffer *buf );
+void init(struct buffer *buf);
+void dofire(struct buffer *buf);
+void cleanup(struct buffer *buf);
 
 #endif

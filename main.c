@@ -23,14 +23,13 @@ main ( int argc, char *argv[] )
 {
 	opts = (struct Options*) calloc(1, sizeof(struct Options*));
 	if (opts == NULL) {
-		EPRINT("fire: error: cannot ");
-		perror("calloc()");
+		perror("fire: error: calloc()");
 	}
 
 	// default args
 	opts->refresh_rate  = 5;
-	opts->truecolor     = FALSE;
 	size_t output_mode  = TB_OUTPUT_NORMAL;
+	opts->truecolor     = FALSE;
 
 	// argument parsing
 	argv0 = argv[0];
@@ -45,7 +44,7 @@ main ( int argc, char *argv[] )
 			break;
 		case 'V':
 			printf("%s %s\n", argv0, VERSION);
-			exit(EXIT_SUCCESS);
+			return 0;
 		case 'h':
 		default:
 			printf("Usage: %s [-tVh] [-r rate]\n", argv0);
@@ -58,7 +57,7 @@ main ( int argc, char *argv[] )
 			printf("(c) Kiëd Llaentenn, nullgemm\n");
 			printf("https://github.com/lptstr/fire\n");
 
-			exit(EXIT_SUCCESS);
+			return 0;
 	} ARGEND
 
 	// initialize termbox
@@ -72,11 +71,7 @@ main ( int argc, char *argv[] )
 	init(&buf);
 
 	// animate
-	while (TRUE)
-	{
-		// clear the screen
-		//tb_clear();
-
+	while (TRUE) {
 		// update framebuffer
 		dofire(&buf);
 
@@ -86,11 +81,13 @@ main ( int argc, char *argv[] )
 		// event handling
 		int err = (size_t) tb_peek_event(&e, opts->refresh_rate);
 
-		if (err < 0)
+		if (err < 0) {
 			continue;
+		}
 
-		if (e.type == TB_EVENT_KEY)
-		{
+		// handle keypresses
+		//     q, ctrl+c, ctrl+d => quit
+		if (e.type == TB_EVENT_KEY) {
 			switch (e.ch) {
 			case 'q':
 				goto cleanup;
@@ -98,13 +95,12 @@ main ( int argc, char *argv[] )
 				break;
 			}
 
-			switch (e.key)
-			{
-				case TB_KEY_CTRL_C:
-				case TB_KEY_CTRL_D:
-					goto cleanup;
-				default:
-					break;
+			switch (e.key) {
+			case TB_KEY_CTRL_C:
+			case TB_KEY_CTRL_D:
+				goto cleanup;
+			default:
+				break;
 			}
 		}
 	}

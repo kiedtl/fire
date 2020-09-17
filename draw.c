@@ -19,7 +19,7 @@ extern struct Options *opts;
 
 // initialize the framebuffer
 void
-init ( struct buffer *buf )
+init(struct buffer *buf)
 {
 	// initialize width/height of terminal
 	buf->width = tb_width();
@@ -45,7 +45,7 @@ init ( struct buffer *buf )
 
 // update the framebuffer
 void
-dofire ( struct buffer *buf )
+dofire(struct buffer *buf)
 {
 	size_t src;
 	size_t random;
@@ -85,7 +85,7 @@ dofire ( struct buffer *buf )
 
 // free framebuffer and shutdown termbox
 void
-cleanup ( struct buffer *buf )
+cleanup(struct buffer *buf)
 {
 	free(buf->buf);
 	tb_shutdown();
