@@ -23,13 +23,13 @@ main ( int argc, char *argv[] )
 {
 	opts = (struct Options*) calloc(1, sizeof(struct Options*));
 	if (opts == NULL) {
-		PRINT("fire: error: cannot ");
+		EPRINT("fire: error: cannot ");
 		perror("calloc()");
 	}
 
 	// default args
-	opts->refresh_rate = 5;
-	opts->truecolor    = FALSE;
+	opts->refresh_rate  = 5;
+	opts->truecolor     = FALSE;
 	size_t output_mode  = TB_OUTPUT_NORMAL;
 
 	// argument parsing
@@ -44,17 +44,21 @@ main ( int argc, char *argv[] )
 			opts->refresh_rate = atoi(ARGF());
 			break;
 		case 'V':
-			PRINT("%s %s\n", argv0, VERSION);
-			exit(0);
+			printf("%s %s\n", argv0, VERSION);
+			exit(EXIT_SUCCESS);
 		case 'h':
 		default:
-			PRINT("fire %s\n(c) Kied Llaentenn and contributors\n", VERSION);
-			PRINT("https://github.com/lptstr/fire\n");
-			PRINT("\nUSAGE:\n\t$ fire\n\n");
-			PRINT("OPTIONS:\n\t-t\tenable true colors.\n");
-			PRINT("\t-V\tshow version and exit.\n");
-			PRINT("\t-h\tshow this help message and exit.\n\n");
-			exit(1);
+			printf("Usage: %s [-tVh] [-r rate]\n", argv0);
+			printf("Display a nice fiery animation.\n\n");
+			printf("ARGUMENTS:\n");
+			printf("    -r [rate]   Change refresh rate. (default: 5)\n");
+			printf("    -t          Enable truecolor. (Will not work on *rxvt)\n");
+			printf("    -h          Display this help message and exit.\n");
+			printf("    -V          Display version and exit.\n\n");
+			printf("(c) Kiëd Llaentenn, nullgemm\n");
+			printf("https://github.com/lptstr/fire\n");
+
+			exit(EXIT_SUCCESS);
 	} ARGEND
 
 	// initialize termbox
@@ -71,7 +75,7 @@ main ( int argc, char *argv[] )
 	while (TRUE)
 	{
 		// clear the screen
-		tb_clear();
+		//tb_clear();
 
 		// update framebuffer
 		dofire(&buf);
