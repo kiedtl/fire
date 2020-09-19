@@ -14,7 +14,7 @@ struct buffer {
 	uint8_t* buf;
 };
 
-void init(struct buffer *buf);
+void init(struct buffer *buf, uint16_t width, uint16_t height);
 void dofire(struct buffer *buf);
 void cleanup(struct buffer *buf);
 

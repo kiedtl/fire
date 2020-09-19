@@ -22,11 +22,11 @@ extern struct Options *opts;
 
 // initialize the framebuffer
 void
-init(struct buffer *buf)
+init(struct buffer *buf, uint16_t width, uint16_t height)
 {
 	// initialize width/height of terminal
-	buf->width = tb_width();
-	buf->height = tb_height();
+	buf->width = width;
+	buf->height = height;
 
 	size_t len = buf->width * buf->height;
 	buf->buf = (uint8_t*) calloc(len, sizeof(uint8_t));
@@ -49,21 +49,26 @@ void
 dofire(struct buffer *buf)
 {
 	size_t src;
-	size_t random = (rand() % 7) & 3;
+	size_t rnd_wind = (lrand48() % 7) & 3;
+	size_t rnd_lose = lrand48() % 100;
+	size_t rnd_loss = (lrand48() % 7) & 3;
 	size_t dest;
 
 	struct tb_cell *realbuf = tb_cell_buffer();
 
 	for (size_t x = 0; x < buf->width; ++x) {
 		for (size_t y = 1; y < buf->height; ++y) {
-			if ((rand() % opts->random_factor) == 0) {
-				random = (rand() % 7) & 3;
+			// TODO; test rngs
+			if ((lrand48() % opts->random_factor) == 0) {
+				rnd_wind = (lrand48() % 7) & 3;
+				rnd_lose = lrand48() % 100;
+				rnd_loss = (lrand48() % 7) & 3;
 			}
 
 			src = y * buf->width + x;
 
 			if (opts->random_wind) {
-				dest = src - random + opts->wind;
+				dest = src - rnd_wind + opts->wind;
 			} else {
 				dest = src + opts->wind;
 			}
@@ -84,11 +89,19 @@ dofire(struct buffer *buf)
 				dest -= buf->width;
 			}
 
-			size_t loss = MIN(opts->max_heat_loss, 3);
-			buf->buf[dest] = MAX(buf->buf[src] - (random & loss), 0);
+			size_t loss = rnd_lose < opts->heat_loss ? 2 : 0;
+			buf->buf[dest] = MAX(buf->buf[src] - (rnd_loss & loss), 0);
 
 			if (buf->buf[dest] > max_value) {
 				buf->buf[dest] = 0;
+			}
+
+			// TODO: comment everything
+
+			// copy from our buffer to termbox's buffer
+			// unless, of course, our buffer is bigger
+			if (src >= tb_width() * tb_height()) {
+				continue;
 			}
 
 			realbuf[dest] = colors[buf->buf[dest]];
@@ -103,5 +116,4 @@ void
 cleanup(struct buffer *buf)
 {
 	free(buf->buf);
-	tb_shutdown();
 }

@@ -11,11 +11,11 @@ WARNING	= -Wall -Wextra -pedantic -Wmissing-prototypes \
 INC	= -Isub/termbox_next/src
 
 CC	= gcc
-CFLAGS	= -std=c99 $(WARNING) $(INC) -fsanitize=address -Og -ggdb
-LDFLAGS	=
+CFLAGS	= -std=c99 -O0 -ggdb $(WARNING) $(INC) #-fsanitize=address
+LDFLAGS	= -static
 
 TRMBOX	= sub/termbox_next/bin/termbox.a
-SRC	= main.c draw.c
+SRC	= main.c draw.c ff.c colors.c terminfo.c
 OBJ	= $(SRC:.c=.o)
 
 DESTDIR = /
